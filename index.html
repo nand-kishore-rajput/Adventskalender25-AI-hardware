@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Minecraft CPU vs GPU vs TPU</title>
+<title>Pixelcraft CPU vs GPU vs TPU</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <!-- PIXEL FONT -->
@@ -157,7 +157,7 @@ button:disabled {
     cursor: not-allowed;
 }
 
-/* INFO CARDS */
+/* INFO CARDS (not used, but kept) */
 .info-cards {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -177,7 +177,7 @@ button:disabled {
     font-size: 0.6em;
 }
 
-/* FLOATING MINECRAFT-STYLE BLOCKS */
+/* FLOATING MINECRAFT-STYLE BLOCKS (kept for theme) */
 .floating-block {
     position: fixed;
     width: 48px;
@@ -205,12 +205,36 @@ button:disabled {
     75%  { transform: translateY(-18px) translateX(5px) rotate(-1deg); }
     100% { transform: translateY(0) translateX(0) rotate(0deg); }
 }
+
+/* language selector row */
+.langbar {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    align-items: center;
+    margin-top: 16px;
+    flex-wrap: wrap;
+}
+
+/* ✅ FIX: unicode-safe font for dropdown + options */
+#languageSelect, #languageSelect option {
+    font-family: system-ui, -apple-system, BlinkMacSystemFont,
+                 "Segoe UI", Roboto, Arial, sans-serif;
+    font-size: 0.65em;
+}
+
+#languageSelect {
+    padding: 10px 12px;
+    border: 3px solid #000;
+    background: #d9ffb3;
+    cursor: pointer;
+}
 </style>
 </head>
 
 <body>
 
-<!-- Floating Minecraft-style grass blocks -->
+<!-- Floating Pixelcraft-style grass blocks -->
 <div class="floating-block block1"></div>
 <div class="floating-block block2"></div>
 <div class="floating-block block3"></div>
@@ -219,19 +243,62 @@ button:disabled {
 <div class="container">
 
 <header>
-    <h1>⛏ CPU vs GPU vs TPU ⛏</h1>
-    <p class="subtitle">Minecraft Parallel Processing Demo</p>
+    <h1
+      data-en="⛏ CPU vs GPU vs TPU ⛏"
+      data-de="⛏ CPU vs GPU vs TPU ⛏"
+      data-es="⛏ CPU vs GPU vs TPU ⛏"
+      data-pt="⛏ CPU vs GPU vs TPU ⛏"
+    >⛏ CPU vs GPU vs TPU ⛏</h1>
+
+    <p class="subtitle"
+       data-en="Pixelcraft Parallel Processing Demo"
+       data-de="Pixelcraft-Demo zur Parallelverarbeitung"
+       data-es="Demo de procesamiento paralelo en Pixelcraft"
+       data-pt="Demonstração de processamento paralelo no Pixelcraft"
+    >Pixelcraft Parallel Processing Demo</p>
+
+    <div class="langbar" aria-label="Language selector">
+        <span
+          data-en="Language:"
+          data-de="Sprache:"
+          data-es="Idioma:"
+          data-pt="Idioma:"
+        >Language:</span>
+
+        <select id="languageSelect" aria-label="Select language">
+            <option value="en">🇬🇧 English</option>
+            <option value="de">🇩🇪 Deutsch</option>
+            <option value="es">🇪🇸 Español</option>
+            <option value="pt">🇵🇹 Português</option>
+        </select>
+    </div>
 </header>
 
 <div class="controls">
     <div class="control-group">
-        <label>World Resolution: <span id="resolutionValue">64x64</span></label>
+        <label id="resolutionLabel"
+          data-en="World Resolution:"
+          data-de="Weltauflösung:"
+          data-es="Resolución del mundo:"
+          data-pt="Resolução do mundo:"
+        >World Resolution:</label>
+        <span id="resolutionValue">64x64</span>
         <input type="range" class="slider" id="resolutionSlider" min="32" max="128" step="16" value="64">
     </div>
 
     <div class="button-group">
-        <button class="btn-start" id="startBtn">▶ Start Mining</button>
-        <button class="btn-reset" id="resetBtn">⛏ Reset World</button>
+        <button class="btn-start" id="startBtn"
+          data-en="▶ Start Mining"
+          data-de="▶ Abbau starten"
+          data-es="▶ Empezar a minar"
+          data-pt="▶ Começar a minerar"
+        >▶ Start Mining</button>
+        <button class="btn-reset" id="resetBtn"
+          data-en="⛏ Reset World"
+          data-de="⛏ Welt zurücksetzen"
+          data-es="⛏ Reiniciar mundo"
+          data-pt="⛏ Redefinir mundo"
+        >⛏ Reset World</button>
     </div>
 </div>
 
@@ -239,44 +306,116 @@ button:disabled {
 
     <div class="processor-card cpu">
         <div class="card-header">
-            <div class="processor-name">⚒ CPU Miner</div>
+            <div class="processor-name"
+              data-en="⚒ CPU Miner"
+              data-de="⚒ CPU-Schürfer"
+              data-es="⚒ Minero CPU"
+              data-pt="⚒ Minerador CPU"
+            >⚒ CPU Miner</div>
             <div class="time-display" id="cpuTime">0.00s</div>
         </div>
         <div class="canvas-container">
             <canvas id="cpuCanvas"></canvas>
-            <div class="status" id="cpuStatus">Ready</div>
+            <div class="status" id="cpuStatus"
+              data-en="Ready"
+              data-de="Bereit"
+              data-es="Listo"
+              data-pt="Pronto"
+            >Ready</div>
         </div>
-        <div class="info">Slow mining — one block at a time.</div>
+        <div class="info"
+          data-en="Slow mining — one block at a time."
+          data-de="Langsamer Abbau — Block für Block."
+          data-es="Minería lenta — un bloque a la vez."
+          data-pt="Mineração lenta — um bloco por vez."
+        >Slow mining — one block at a time.</div>
     </div>
 
     <div class="processor-card gpu">
         <div class="card-header">
-            <div class="processor-name">💎 GPU Crafter</div>
+            <div class="processor-name"
+              data-en="💎 GPU Crafter"
+              data-de="💎 GPU-Crafter"
+              data-es="💎 Artesano GPU"
+              data-pt="💎 Artesão GPU"
+            >💎 GPU Crafter</div>
             <div class="time-display" id="gpuTime">0.00s</div>
         </div>
         <div class="canvas-container">
             <canvas id="gpuCanvas"></canvas>
-            <div class="status" id="gpuStatus">Ready</div>
+            <div class="status" id="gpuStatus"
+              data-en="Ready"
+              data-de="Bereit"
+              data-es="Listo"
+              data-pt="Pronto"
+            >Ready</div>
         </div>
-        <div class="info">Fast mining — multiple rows at once.</div>
+        <div class="info"
+          data-en="Fast mining — multiple rows at once."
+          data-de="Schneller Abbau — mehrere Reihen auf einmal."
+          data-es="Minería rápida — varias filas a la vez."
+          data-pt="Mineração rápida — várias linhas de uma vez."
+        >Fast mining — multiple rows at once.</div>
     </div>
 
     <div class="processor-card tpu">
         <div class="card-header">
-            <div class="processor-name">🧠 TPU Redstone Core</div>
+            <div class="processor-name"
+              data-en="🧠 TPU Redstone Core"
+              data-de="🧠 TPU-Redstone-Kern"
+              data-es="🧠 Núcleo Redstone TPU"
+              data-pt="🧠 Núcleo Redstone TPU"
+            >🧠 TPU Redstone Core</div>
             <div class="time-display" id="tpuTime">0.00s</div>
         </div>
         <div class="canvas-container">
             <canvas id="tpuCanvas"></canvas>
-            <div class="status" id="tpuStatus">Ready</div>
+            <div class="status" id="tpuStatus"
+              data-en="Ready"
+              data-de="Bereit"
+              data-es="Listo"
+              data-pt="Pronto"
+            >Ready</div>
         </div>
-        <div class="info">Instant mining — entire chunk at once.</div>
+        <div class="info"
+          data-en="Instant mining — entire chunk at once."
+          data-de="Sofortiger Abbau — ganzer Chunk auf einmal."
+          data-es="Minería instantánea — el chunk completo de una vez."
+          data-pt="Mineração instantânea — o chunk inteiro de uma vez."
+        >Instant mining — entire chunk at once.</div>
     </div>
 
 </div>
 
 </div>
 
+<!-- MAIN SCRIPT: language -->
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    function setLanguage(lang) {
+        document.querySelectorAll('[data-en]').forEach(el => {
+            const text = el.getAttribute(`data-${lang}`) || el.getAttribute('data-en');
+            if (text !== null) el.textContent = text;
+        });
+        localStorage.setItem('selectedLanguage', lang);
+        updateResolutionText();
+    }
+
+    const langSelect = document.getElementById('languageSelect');
+    const savedLang = localStorage.getItem('selectedLanguage') || 'en';
+    if (langSelect) {
+        langSelect.value = savedLang;
+        setLanguage(savedLang);
+        langSelect.addEventListener('change', (e) => setLanguage(e.target.value));
+    } else {
+        setLanguage(savedLang);
+    }
+
+    window.__getLang = () => (localStorage.getItem('selectedLanguage') || 'en');
+});
+</script>
+
+<!-- DEMO SCRIPT -->
 <script>
 // Controls & elements
 var resolutionSlider = document.getElementById('resolutionSlider');
@@ -304,6 +443,10 @@ var resolution   = 64;
 var isRunning    = false;
 var cancelRender = false;
 
+function updateResolutionText() {
+    resolutionValue.textContent = resolution + "x" + resolution;
+}
+
 function setCanvasSize() {
     cpuCanvas.width = resolution;
     cpuCanvas.height = resolution;
@@ -316,7 +459,7 @@ setCanvasSize();
 
 resolutionSlider.addEventListener('input', function(e){
     resolution = parseInt(e.target.value);
-    resolutionValue.textContent = resolution + "x" + resolution;
+    updateResolutionText();
     setCanvasSize();
     resetAll();
 });
@@ -333,9 +476,10 @@ function resetAll(){
     gpuTime.textContent = '0.00s';
     tpuTime.textContent = '0.00s';
 
-    cpuStatus.textContent = 'Ready';
-    gpuStatus.textContent = 'Ready';
-    tpuStatus.textContent = 'Ready';
+    var lang = (window.__getLang && window.__getLang()) || 'en';
+    cpuStatus.textContent = cpuStatus.getAttribute('data-' + lang) || cpuStatus.getAttribute('data-en') || 'Ready';
+    gpuStatus.textContent = gpuStatus.getAttribute('data-' + lang) || gpuStatus.getAttribute('data-en') || 'Ready';
+    tpuStatus.textContent = tpuStatus.getAttribute('data-' + lang) || tpuStatus.getAttribute('data-en') || 'Ready';
 }
 
 // Same gradient color for all three
@@ -349,10 +493,8 @@ function generatePixelColor(x, y){
 // HSL to RGB helper (for TPU imageData)
 function hslToRgb(h, s, l) {
     var r, g, b;
-
-    if (s === 0) {
-        r = g = b = l;
-    } else {
+    if (s === 0) { r = g = b = l; }
+    else {
         function hue2rgb(p, q, t) {
             if (t < 0) t += 1;
             if (t > 1) t -= 1;
@@ -361,21 +503,28 @@ function hslToRgb(h, s, l) {
             if (t < 2/3) return p + (q - p) * (2/3 - t) * 6;
             return p;
         }
-
         var q = l < 0.5 ? l * (1 + s) : l + s - l * s;
         var p = 2 * l - q;
         r = hue2rgb(p, q, h + 1/3);
         g = hue2rgb(p, q, h);
         b = hue2rgb(p, q, h - 1/3);
     }
-
     return [Math.round(r * 255), Math.round(g * 255), Math.round(b * 255)];
+}
+
+function t(key) {
+    var lang = (window.__getLang && window.__getLang()) || 'en';
+    var dict = {
+        mining: { en:"Mining...", de:"Baue ab...", es:"Minando...", pt:"Minerando..." },
+        done:   { en:"Done!",    de:"Fertig!",   es:"¡Listo!",  pt:"Feito!" }
+    };
+    return (dict[key] && (dict[key][lang] || dict[key].en)) || key;
 }
 
 // CPU: sequential
 function renderCPU(){
     return new Promise(resolve=>{
-        cpuStatus.textContent = "Mining...";
+        cpuStatus.textContent = t("mining");
         var x = 0, y = 0;
         var start = performance.now();
 
@@ -384,7 +533,7 @@ function renderCPU(){
 
             if (y >= resolution) {
                 cpuTime.textContent = ((performance.now()-start)/1000).toFixed(2) + "s";
-                cpuStatus.textContent = "Done!";
+                cpuStatus.textContent = t("done");
                 resolve();
                 return;
             }
@@ -404,7 +553,7 @@ function renderCPU(){
 // GPU: batched rows
 function renderGPU(){
     return new Promise(resolve=>{
-        gpuStatus.textContent = "Mining...";
+        gpuStatus.textContent = t("mining");
         var y = 0;
         var rowsPerBatch = 4;
         var start = performance.now();
@@ -414,7 +563,7 @@ function renderGPU(){
 
             if (y >= resolution) {
                 gpuTime.textContent = ((performance.now()-start)/1000).toFixed(2) + "s";
-                gpuStatus.textContent = "Done!";
+                gpuStatus.textContent = t("done");
                 resolve();
                 return;
             }
@@ -436,7 +585,7 @@ function renderGPU(){
 // TPU: full image in one go (same gradient)
 function renderTPU(){
     return new Promise(resolve=>{
-        tpuStatus.textContent = "Mining...";
+        tpuStatus.textContent = t("mining");
         var start = performance.now();
 
         var imageData = tpuCtx.createImageData(resolution, resolution);
@@ -465,7 +614,7 @@ function renderTPU(){
             if (!cancelRender) {
                 tpuCtx.putImageData(imageData, 0, 0);
                 tpuTime.textContent = ((performance.now() - start)/1000).toFixed(2) + "s";
-                tpuStatus.textContent = "Done!";
+                tpuStatus.textContent = t("done");
             }
             resolve();
         }, 50);
@@ -507,6 +656,10 @@ resetBtn.onclick = function(){
     resolutionSlider.disabled = false;
     resetAll();
 };
+
+updateResolutionText();
+resetAll();
 </script>
+
 </body>
 </html>
